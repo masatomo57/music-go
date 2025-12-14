@@ -22,7 +22,7 @@ var Scores = map[string]Score{
 	},
 }
 
-func (s Score) WriteToFile(file *os.File) {
+func (s *Score) WriteToFile(file *os.File) {
 	melody := s.Melody.GenerateSamples()
 	accompaniment := s.Accompaniment.GenerateSamples()
 	if len(melody) != len(accompaniment) {

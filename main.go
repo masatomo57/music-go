@@ -19,12 +19,12 @@ type MusicWriter interface {
 	WriteToFile(file *os.File)
 }
 
-func getMusicWriter(mode string, score score.Score) (MusicWriter, error) {
+func getMusicWriter(mode string, score *score.Score) (MusicWriter, error) {
 	switch mode {
 	case ModeMelody:
-		return score.Melody, nil
+		return &score.Melody, nil
 	case ModeAccompaniment:
-		return score.Accompaniment, nil
+		return &score.Accompaniment, nil
 	case ModeMix:
 		return score, nil
 	default:
@@ -44,7 +44,7 @@ func main() {
 		log.Fatalf("score not found: %s", *title)
 	}
 
-	w, err := getMusicWriter(*mode, score)
+	w, err := getMusicWriter(*mode, &score)
 	if err != nil {
 		log.Fatalf("failed to get music writer: %v", err)
 	}

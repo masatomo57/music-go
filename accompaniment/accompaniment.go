@@ -14,9 +14,9 @@ type Accompaniment []struct {
 }
 
 // GenerateSamples generates audio samples as []float32 without writing to file
-func (a Accompaniment) GenerateSamples() []float32 {
+func (a *Accompaniment) GenerateSamples() []float32 {
 	var samples []float32
-	for _, chordWithLength := range a {
+	for _, chordWithLength := range *a {
 		sampleCount := int((chordWithLength.Length * conf.SamplesPerSec) / 4)
 		damping := math.Pow(conf.End, 1.0/float64(sampleCount))
 		for i := 0; i < sampleCount; i++ {
@@ -34,8 +34,8 @@ func (a Accompaniment) GenerateSamples() []float32 {
 }
 
 // WriteToFile writes the accompaniment samples to a file
-func (a Accompaniment) WriteToFile(file *os.File) {
-	for _, chordWithLength := range a {
+func (a *Accompaniment) WriteToFile(file *os.File) {
+	for _, chordWithLength := range *a {
 		samples := int((chordWithLength.Length * conf.SamplesPerSec) / 4)
 		damping := math.Pow(conf.End, 1.0/float64(samples))
 		for i := 0; i < samples; i++ {

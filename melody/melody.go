@@ -14,9 +14,9 @@ type Melody []struct {
 }
 
 // GenerateSamples generates audio samples as []float32 without writing to file
-func (m Melody) GenerateSamples() []float32 {
+func (m *Melody) GenerateSamples() []float32 {
 	var samples []float32
-	for _, noteWithLength := range m {
+	for _, noteWithLength := range *m {
 		sampleCount := int((noteWithLength.Length * conf.SamplesPerSec) / 4)
 		damping := math.Pow(conf.End, 1.0/float64(sampleCount))
 		for i := 0; i < sampleCount; i++ {
@@ -29,8 +29,8 @@ func (m Melody) GenerateSamples() []float32 {
 }
 
 // WriteTo writes the melody samples to a file
-func (m Melody) WriteToFile(file *os.File) {
-	for _, noteWithLength := range m {
+func (m *Melody) WriteToFile(file *os.File) {
+	for _, noteWithLength := range *m {
 		samples := int((noteWithLength.Length * conf.SamplesPerSec) / 4)
 		damping := math.Pow(conf.End, 1.0/float64(samples))
 		for i := 0; i < samples; i++ {
