@@ -21,6 +21,18 @@ var Scores = map[string]Score{
 	},
 }
 
+func (s Score) GenerateSamples() []float32 {
+	var samples []float32
+	melodySamples := s.Melody.GenerateSamples()
+	accompanimentSamples := s.Accompaniment.GenerateSamples()
+	samplesNum := min(len(melodySamples), len(accompanimentSamples))
+	for i := 0; i < samplesNum; i++ {
+		sample := 0.5*melodySamples[i] + 0.5*accompanimentSamples[i]
+		samples = append(samples, sample)
+	}
+	return samples
+}
+
 func (s Score) WriteToFile(file *os.File) {
 	melodySamples := s.Melody.GenerateSamples()
 	accompanimentSamples := s.Accompaniment.GenerateSamples()

@@ -5,8 +5,8 @@ Inspired by [Golangでカノンを演奏してみた｜homie株式会社](https:
 # How to use
 - Create and register a score (see [/score](./score)).
 - To check your melody or accompaniment, run the following commands:
-  - Melody: `sh melody/cmd/run.sh <your title>`
-  - Accompaniment: `sh accompaniment/cmd/run.sh <your title>`
+  - Melody: `sh run.sh <your title> melody` or `sh melody/cmd/run.sh <your title>`.
+  - Accompaniment: `sh run.sh <your title> accompaniment` or `sh accompaniment/cmd/run.sh <your title>`.
 - Once you are satisfied with the melody and accompaniment, execute `sh run.sh <your title>` and enjoy the music!
 
 # Example - Jingle Bells
