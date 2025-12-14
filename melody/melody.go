@@ -29,7 +29,7 @@ func (m Melody) GenerateSamples() []float32 {
 }
 
 // WriteTo writes the melody samples to a file
-func (m Melody) WriteTo(file *os.File) {
+func (m Melody) WriteToFile(file *os.File) {
 	for _, noteWithLength := range m {
 		samples := int((noteWithLength.Length * conf.SamplesPerSec) / 4)
 		damping := math.Pow(conf.End, 1.0/float64(samples))

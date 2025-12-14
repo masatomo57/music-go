@@ -22,5 +22,5 @@ func main() {
 	f, _ := os.Create(file)
 	defer f.Close()
 
-	m.WriteTo(f)
+	m.WriteToFile(f)
 }
