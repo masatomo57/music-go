@@ -2,6 +2,7 @@ package score
 
 import (
 	"encoding/binary"
+	"log"
 	"math"
 	"os"
 
@@ -22,11 +23,15 @@ var Scores = map[string]Score{
 }
 
 func (s Score) WriteToFile(file *os.File) {
-	melodySamples := s.Melody.GenerateSamples()
-	accompanimentSamples := s.Accompaniment.GenerateSamples()
-	samples := min(len(melodySamples), len(accompanimentSamples))
-	for i := 0; i < samples; i++ {
-		sample := 0.5*melodySamples[i] + 0.5*accompanimentSamples[i]
+	melody := s.Melody.GenerateSamples()
+	accompaniment := s.Accompaniment.GenerateSamples()
+	if len(melody) != len(accompaniment) {
+		log.Fatalf("length mismatch: melody %d, accompaniment %d", len(melody), len(accompaniment))
+	}
+	samplesLength := len(melody)
+
+	for i := 0; i < samplesLength; i++ {
+		sample := 0.5*melody[i] + 0.5*accompaniment[i]
 		buf := make([]byte, 4)
 		binary.LittleEndian.PutUint32(buf, math.Float32bits(float32(sample)))
 		file.Write(buf)
