@@ -1,6 +1,6 @@
 # music-go
 Play music using [Go](https://go.dev/).
-Inspired by [Golangでカノンを演奏してみた｜homie株式会社](https://note.homie.co.jp/n/n52e3108962d1.)
+Inspired by [Golangでカノンを演奏してみた｜homie株式会社](https://note.homie.co.jp/n/n52e3108962d1).
 
 # How to use
 - Create and register a score (see [/score](./score)).
