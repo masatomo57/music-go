@@ -19,6 +19,10 @@ var Scores = map[string]Score{
 		Melody:        JingleBellMelody,
 		Accompaniment: JingleBellAccompaniment,
 	},
+	"haru_no_umi": {
+		Melody:        HaruNoUmiMelody,
+		Accompaniment: HaruNoUmiAccompaniment,
+	},
 }
 
 func (s *Score) WriteToFile(file *os.File) error {
