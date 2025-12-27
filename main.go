@@ -16,7 +16,7 @@ const (
 )
 
 type MusicWriter interface {
-	WriteToFile(file *os.File)
+	WriteToFile(file *os.File) error
 }
 
 func getMusicWriter(mode string, score *score.Score) (MusicWriter, error) {
@@ -50,8 +50,13 @@ func main() {
 	}
 
 	file := "out.bin"
-	f, _ := os.Create(file)
+	f, err := os.Create(file)
+	if err != nil {
+		log.Fatalf("failed to create output file: %v", err)
+	}
 	defer f.Close()
 
-	w.WriteToFile(f)
+	if err := w.WriteToFile(f); err != nil {
+		log.Fatalf("failed to write music: %v", err)
+	}
 }
