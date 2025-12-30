@@ -1,8 +1,6 @@
 package accompaniment
 
 import (
-	"os"
-
 	conf "github.com/masatomo57/music-go/conf"
 	"github.com/masatomo57/music-go/util"
 )
@@ -21,7 +19,7 @@ func (a *Accompaniment) GenerateSamples() []float32 {
 		for i, note := range chordWithLength.Chord.Notes {
 			frequencies[i] = note.Hertz()
 		}
-		
+
 		chordSamples := util.GenerateSamplesForLength(chordWithLength.Length, func(i int) float64 {
 			if len(frequencies) == 0 {
 				return 0
@@ -37,10 +35,4 @@ func (a *Accompaniment) GenerateSamples() []float32 {
 		samples = append(samples, chordSamples...)
 	}
 	return samples
-}
-
-// WriteToFile writes the accompaniment samples to a file
-func (a *Accompaniment) WriteToFile(file *os.File) error {
-	samples := a.GenerateSamples()
-	return util.WriteSamples(file, samples)
 }

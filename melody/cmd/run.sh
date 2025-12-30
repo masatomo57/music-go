@@ -4,4 +4,5 @@ title=${1:-jingle_bell}
 
 go run main.go -title=$title
 
-ffplay -autoexit -f f32le -showmode 1 out.bin
+output_file="${title}_melody.wav"
+ffplay -autoexit "$output_file"

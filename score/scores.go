@@ -2,11 +2,9 @@ package score
 
 import (
 	"log"
-	"os"
 
 	"github.com/masatomo57/music-go/accompaniment"
 	"github.com/masatomo57/music-go/melody"
-	"github.com/masatomo57/music-go/util"
 )
 
 type Score struct {
@@ -25,7 +23,7 @@ var Scores = map[string]Score{
 	},
 }
 
-func (s *Score) WriteToFile(file *os.File) error {
+func (s *Score) GenerateSamples() []float32 {
 	melody := s.Melody.GenerateSamples()
 	accompaniment := s.Accompaniment.GenerateSamples()
 	if len(melody) != len(accompaniment) {
@@ -36,6 +34,6 @@ func (s *Score) WriteToFile(file *os.File) error {
 	for i := range melody {
 		mixed[i] = 0.5*melody[i] + 0.5*accompaniment[i]
 	}
-	
-	return util.WriteSamples(file, mixed)
+
+	return mixed
 }

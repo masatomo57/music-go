@@ -7,6 +7,7 @@ import (
 	"os"
 
 	score "github.com/masatomo57/music-go/score"
+	"github.com/masatomo57/music-go/util"
 )
 
 const (
@@ -16,7 +17,7 @@ const (
 )
 
 type MusicWriter interface {
-	WriteToFile(file *os.File) error
+	GenerateSamples() []float32
 }
 
 func getMusicWriter(mode string, score *score.Score) (MusicWriter, error) {
@@ -49,14 +50,25 @@ func main() {
 		log.Fatalf("failed to get music writer: %v", err)
 	}
 
-	file := "out.bin"
+	file := fmt.Sprintf("%s_%s.wav", *title, *mode)
 	f, err := os.Create(file)
 	if err != nil {
 		log.Fatalf("failed to create output file: %v", err)
 	}
 	defer f.Close()
 
-	if err := w.WriteToFile(f); err != nil {
-		log.Fatalf("failed to write music: %v", err)
+	// サンプルを生成
+	samples := w.GenerateSamples()
+
+	// WAVヘッダーを書き込み
+	if err := util.WriteWAVHeader(f, len(samples)); err != nil {
+		log.Fatalf("failed to write WAV header: %v", err)
 	}
+
+	// 音声データを書き込み
+	if err := util.WriteSamples(f, samples); err != nil {
+		log.Fatalf("failed to write samples: %v", err)
+	}
+
+	fmt.Printf("Generated %s (%s mode)\n", file, *mode)
 }

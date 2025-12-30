@@ -13,7 +13,7 @@ type FrequencyProvider func(i int) float64
 func GenerateSamplesForLength(length float64, freqProvider FrequencyProvider) []float32 {
 	sampleCount := int((length * conf.SamplesPerSec) / 4)
 	damping := math.Pow(conf.End, 1.0/float64(sampleCount))
-	
+
 	samples := make([]float32, sampleCount)
 	for i := 0; i < sampleCount; i++ {
 		sample := freqProvider(i)

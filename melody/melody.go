@@ -1,8 +1,6 @@
 package melody
 
 import (
-	"os"
-
 	conf "github.com/masatomo57/music-go/conf"
 	"github.com/masatomo57/music-go/util"
 )
@@ -23,10 +21,4 @@ func (m *Melody) GenerateSamples() []float32 {
 		samples = append(samples, noteSamples...)
 	}
 	return samples
-}
-
-// WriteToFile writes the melody samples to a file
-func (m *Melody) WriteToFile(file *os.File) error {
-	samples := m.GenerateSamples()
-	return util.WriteSamples(file, samples)
 }

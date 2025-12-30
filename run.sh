@@ -5,4 +5,5 @@ mode=${2:-mix}
 
 go run main.go -title=$title -mode=$mode
 
-ffplay -autoexit -f f32le -showmode 1 out.bin
+output_file="${title}_${mode}.wav"
+ffplay -autoexit "$output_file"

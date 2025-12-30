@@ -36,9 +36,9 @@ const (
 	A5  Note = 880.000
 	B5  Note = 987.767
 
-	C6  Note = 1046.502
-	D6  Note = 1174.659
-	E6  Note = 1318.510
+	C6 Note = 1046.502
+	D6 Note = 1174.659
+	E6 Note = 1318.510
 
 	None Note = 0
 )
